@@ -2,10 +2,10 @@ package auth
 
 import (
 	"encoding/json"
+	"github.com/xu42/youzan-sdk-go/util"
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"youzan/util"
 )
 
 const UrlOauthToken string = "https://open.youzan.com/oauth/token"

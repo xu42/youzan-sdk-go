@@ -1,1 +1,1 @@
-module youzan
+module github.com/xu42/youzan-sdk-go

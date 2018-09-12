@@ -1,12 +1,12 @@
-package main
+package examples
 
 import (
 	"fmt"
-	"youzan"
-	"youzan/auth"
+	"github.com/xu42/youzan-sdk-go"
+	"github.com/xu42/youzan-sdk-go/auth"
 )
 
-func main() {
+func testCall() {
 
 	selfTokenResp, err := auth.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", 110)
 	if err != nil {

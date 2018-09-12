@@ -2,9 +2,9 @@ package youzan
 
 import (
 	"encoding/json"
+	"github.com/xu42/youzan-sdk-go/util"
 	"io/ioutil"
 	"net/http"
-	"youzan/util"
 )
 
 func Call(accessToken, apiName, apiVersion string, params map[string]string) (response Response, err error) {
