@@ -7,11 +7,12 @@ import (
 	"net/http"
 )
 
+// Call 发起接口调用
 func Call(accessToken, apiName, apiVersion string, params map[string]string) (response Response, err error) {
 
 	params["access_token"] = accessToken
 
-	resp, err := http.DefaultClient.PostForm(util.BuildUrl(apiName, apiVersion), util.BuildPostParams(params))
+	resp, err := http.DefaultClient.PostForm(util.BuildURL(apiName, apiVersion), util.BuildPostParams(params))
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -28,6 +29,7 @@ func Call(accessToken, apiName, apiVersion string, params map[string]string) (re
 	return
 }
 
+// Response 接口响应封装结构体
 type Response struct {
 	Success bool
 	Result  map[string]interface{} `json:"response"`

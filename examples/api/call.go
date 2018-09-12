@@ -1,4 +1,4 @@
-package examples
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/xu42/youzan-sdk-go/auth"
 )
 
-func testCall() {
+func main() {
 
 	selfTokenResp, err := auth.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", 110)
 	if err != nil {
