@@ -12,13 +12,13 @@ import (
 const URLOauthToken string = "https://open.youzan.com/oauth/token"
 
 // GenSelfToken 获取自用型AccessToken
-func GenSelfToken(clientID, clientSecret string, kdtID uint64) (selfTokenResp SelfTokenResp, err error) {
+func GenSelfToken(request GenSelfTokenRequest) (response GenSelfTokenResponse, err error) {
 
 	params := make(map[string]string)
 	params["grant_type"] = "silent"
-	params["client_id"] = clientID
-	params["client_secret"] = clientSecret
-	params["kdt_id"] = strconv.FormatUint(kdtID, 10)
+	params["client_id"] = request.ClientID
+	params["client_secret"] = request.ClientSecret
+	params["kdt_id"] = strconv.FormatUint(request.KdtID, 10)
 
 	resp, err := http.DefaultClient.PostForm(URLOauthToken, util.BuildPostParams(params))
 	if err != nil {
@@ -30,13 +30,20 @@ func GenSelfToken(clientID, clientSecret string, kdtID uint64) (selfTokenResp Se
 		return
 	}
 
-	err = json.Unmarshal(body, &selfTokenResp)
+	err = json.Unmarshal(body, &response)
 
 	return
 }
 
-// SelfTokenResp 自用型AccessToken结构体
-type SelfTokenResp struct {
+// GenSelfTokenRequest 获取自用型AccessToken请求参数结构体
+type GenSelfTokenRequest struct {
+	ClientID     string
+	ClientSecret string
+	KdtID        uint64
+}
+
+// GenSelfTokenResponse 获取自用型AccessToken响应参数结构体
+type GenSelfTokenResponse struct {
 	AccessToken string `json:"access_token"`
 	ExpiresIn   int    `json:"expires_in"`
 	Scope       string `json:"scope"`

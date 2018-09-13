@@ -8,8 +8,8 @@ go get github.com/xu42/youzan-sdk-go
 ```
 
 ## Usage
-- Generate AccessToken, See [examples/token.go](examples/token.go)
-- Call API, See [examples/call.go](examples/call.go)
+- Generate AccessToken, See [examples/auth/token.go](examples/token/token.go)
+- Call API, See [examples/api/call.go](examples/api/call.go)
 
 
 ## TODO

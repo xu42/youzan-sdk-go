@@ -3,12 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/xu42/youzan-sdk-go"
-	"github.com/xu42/youzan-sdk-go/auth"
 )
 
 func main() {
 
-	selfTokenResp, err := auth.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", 110)
+	selfTokenResp, err := youzan.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", 110)
 	if err != nil {
 		fmt.Println(err)
 		return
