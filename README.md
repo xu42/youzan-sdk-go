@@ -2,6 +2,10 @@
 
 <p align="center"> Youzan Yun client for Golang ...</p>
 
+[![Build Status](https://travis-ci.org/xu42/youzan-sdk-go.svg)](https://travis-ci.org/xu42/youzan-sdk-go)
+[![release](https://img.shields.io/github/release/xu42/youzan-sdk-go.svg)](https://github.com/xu42/youzan-sdk-go/releases)
+[![GitHub license](https://img.shields.io/badge/license-GNU-blue.svg)](https://raw.githubusercontent.com/xu42/youzan-sdk-go/master/LICENSE)
+
 ## Install
 ```shell
 go get github.com/xu42/youzan-sdk-go
@@ -14,8 +18,8 @@ go get github.com/xu42/youzan-sdk-go
 
 ## TODO
 - [x] 支持自用型应用
+- [x] 支持工具型应用
 - [ ] 测试用例
-- [ ] 支持工具型应用
 
 ## License
 GNU General Public License v3.0

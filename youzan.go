@@ -6,8 +6,17 @@ import (
 )
 
 // GenSelfToken 生成自用型Token
-func GenSelfToken(clientID, clientSecret string, kdtID uint64) (resp auth.GenSelfTokenResponse, err error) {
-	return auth.GenSelfToken(auth.GenSelfTokenRequest{ClientID: clientID, ClientSecret: clientSecret, KdtID: kdtID})
+func GenSelfToken(clientID, clientSecret, kdtID string) (resp auth.GenSelfTokenResponse, err error) {
+	return auth.GenSelfToken(auth.GenSelfTokenRequest{
+		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, GrantType: "silent"},
+		KdtID:               kdtID})
+}
+
+// GenToolToken 生成工具型Token
+func GenToolToken(clientID, clientSecret, code, redirectURL string) (resp auth.GenToolTokenResponse, err error) {
+	return auth.GenToolToken(auth.GenToolTokenRequest{
+		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, GrantType: "authorization_code"},
+		Code:                code, RedirectURI: redirectURL})
 }
 
 // Call 发起接口调用

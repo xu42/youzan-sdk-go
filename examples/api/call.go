@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	selfTokenResp, err := youzan.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", 110)
+	resp, err := youzan.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", "110")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -18,6 +18,6 @@ func main() {
 		"page_size": "10",
 	}
 
-	result, err := youzan.Call(selfTokenResp.AccessToken, "youzan.scrm.customer.search", "3.1.0", params)
+	result, err := youzan.Call(resp.AccessToken, "youzan.scrm.customer.search", "3.1.0", params)
 	fmt.Println(result.Success, result.Result, result.Error, err)
 }
