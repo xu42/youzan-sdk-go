@@ -13,7 +13,7 @@ go get github.com/xu42/youzan-sdk-go
 ```
 
 ## Usage
-- Generate AccessToken, See [examples/auth/token.go](examples/token/token.go)
+- Generate AccessToken, See [examples/auth/token.go](examples/auth/token.go)
 - Call API, See [examples/api/call.go](examples/api/call.go)
 
 
