@@ -19,6 +19,8 @@
 
 ## Install
 ```shell
+go get github.com/xu42/youzan-sdk-go
+or
 go get github.com/xu42/youzan-sdk-go@bifrost
 ```
 
