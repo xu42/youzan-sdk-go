@@ -1,31 +1,39 @@
 package util
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
-	"net/url"
-	"strings"
+	"io/ioutil"
+	"net/http"
 )
 
 // URLAPIBase API URL
-const URLAPIBase string = "https://open.youzan.com/api/oauthentry/%s/%s/%s"
+const URLAPIBase string = "https://api.youzanyun.com/api/%s/%s?access_token=%s"
 
 // BuildPostParams 组装HTTP POST参数
-func BuildPostParams(data map[string]string) url.Values {
-
-	params := make(url.Values)
-
-	for key, value := range data {
-		params.Set(key, value)
-	}
-
-	return params
+func BuildPostParams(data map[string]string) []byte {
+	jsonStr, _ := json.Marshal(data)
+	return jsonStr
 }
 
 // BuildURL 组装接口URL
-func BuildURL(apiName, apiVersion string) (url string) {
+func BuildURL(apiName, apiVersion, accessToken string) (url string) {
+	return fmt.Sprintf(URLAPIBase, apiName, apiVersion, accessToken)
+}
 
-	sl := strings.Split(apiName, ".")
-	url = fmt.Sprintf(URLAPIBase, strings.Join(sl[0:len(sl)-1], "."), apiVersion, sl[len(sl)-1])
+// PostJSON 发起Post Json请求
+func PostJSON(url string, params []byte) ([]byte, error) {
 
-	return
+	client := &http.Client{}
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(params))
+
+	req.Header.Set("response-compatible-mode", "xu42")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "YZY-Open-Client compatible - GO")
+
+	resp, err := client.Do(req)
+	body, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	return body, err
 }

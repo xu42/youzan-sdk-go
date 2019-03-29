@@ -3,18 +3,14 @@ package api
 import (
 	"encoding/json"
 	"github.com/xu42/youzan-sdk-go/util"
-	"io/ioutil"
-	"net/http"
 )
 
 // Call 发起接口调用
 func Call(request CallRequest) (response CallResponse, err error) {
 
-	request.APIParams["access_token"] = request.AccessToken
-
-	resp, err := http.DefaultClient.PostForm(util.BuildURL(request.APIName, request.APIVersion), util.BuildPostParams(request.APIParams))
-
-	body, err := ioutil.ReadAll(resp.Body)
+	url := util.BuildURL(request.APIName, request.APIVersion, request.AccessToken)
+	params := util.BuildPostParams(request.APIParams)
+	body, err := util.PostJSON(url, params)
 	if err != nil {
 		return
 	}
