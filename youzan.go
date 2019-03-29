@@ -6,16 +6,16 @@ import (
 )
 
 // GenSelfToken 生成自用型Token
-func GenSelfToken(clientID, clientSecret, kdtID string) (resp auth.GenSelfTokenResponse, err error) {
+func GenSelfToken(clientID, clientSecret, grantID string) (resp auth.GenSelfTokenResponse, err error) {
 	return auth.GenSelfToken(auth.GenSelfTokenRequest{
-		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, GrantType: "silent"},
-		KdtID:               kdtID})
+		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, AuthorizeType: "silent"},
+		GrantID:             grantID})
 }
 
 // GenToolToken 生成工具型Token
 func GenToolToken(clientID, clientSecret, code, redirectURL string) (resp auth.GenToolTokenResponse, err error) {
 	return auth.GenToolToken(auth.GenToolTokenRequest{
-		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, GrantType: "authorization_code"},
+		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, AuthorizeType: "authorization_code"},
 		Code:                code, RedirectURI: redirectURL})
 }
 

@@ -7,17 +7,15 @@ import (
 
 func main() {
 
-	resp, err := youzan.GenSelfToken("CLIENT_ID", "CLIENT_SECRET", "110")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	resp, err := youzan.GenSelfToken("bifrost-console", "bifrost-console", "160")
+	fmt.Println(resp, err)
 
 	params := map[string]string{
-		"page_no":   "1",
-		"page_size": "10",
+		"mobile":    "13800138000",
+		"fans_type": "0",
+		"fans_id":   "0",
 	}
 
-	result, err := youzan.Call(resp.AccessToken, "youzan.scrm.customer.search", "3.1.0", params)
+	result, err := youzan.Call(resp.Data.AccessToken, "youzan.scrm.customer.get", "3.0.0", params)
 	fmt.Println(result.Success, result.Result, result.Error, err)
 }
