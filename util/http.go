@@ -9,7 +9,7 @@ import (
 )
 
 // URLAPIBase API URL
-const URLAPIBase string = "https://api.youzanyun.com/api/%s/%s?access_token=%s"
+const URLAPIBase string = "https://open.youzanyun.com/api/%s/%s?access_token=%s"
 
 // BuildPostParams 组装HTTP POST参数
 func BuildPostParams(data map[string]string) []byte {
