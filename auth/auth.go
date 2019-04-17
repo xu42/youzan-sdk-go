@@ -6,7 +6,7 @@ import (
 )
 
 // URLOauthToken 认证Token
-const URLOauthToken string = "https://api.youzanyun.com/auth/token"
+const URLOauthToken string = "https://open.youzanyun.com/auth/token"
 
 // GenSelfToken 获取自用型AccessToken
 func GenSelfToken(request GenSelfTokenRequest) (response GenSelfTokenResponse, err error) {
