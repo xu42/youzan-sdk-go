@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/guoqchen1001/youzan-sdk-go"
+	"github.com/xu42/youzan-sdk-go"
 )
 
 func main() {
