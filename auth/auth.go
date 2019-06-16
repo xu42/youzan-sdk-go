@@ -3,7 +3,7 @@ package auth
 import (
 	"encoding/json"
 
-	"github.com/guoqchen1001/youzan-sdk-go/util"
+	"github.com/xu42/youzan-sdk-go/util"
 )
 
 // URLOauthToken 认证Token

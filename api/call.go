@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/guoqchen1001/youzan-sdk-go/util"
+	"github.com/xu42/youzan-sdk-go/util"
 )
 
 // Call 发起接口调用
