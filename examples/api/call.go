@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/xu42/youzan-sdk-go"
 )
 
@@ -17,5 +18,5 @@ func main() {
 	}
 
 	result, err := youzan.Call(resp.Data.AccessToken, "youzan.scrm.customer.get", "3.0.0", params)
-	fmt.Println(result.Success, result.Result, result.Error, err)
+	fmt.Println(result.Success, result.Result, result.Error(), err)
 }

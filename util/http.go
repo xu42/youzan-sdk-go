@@ -32,6 +32,10 @@ func PostJSON(url string, params []byte) ([]byte, error) {
 	req.Header.Set("User-Agent", "YZY-Open-Client bifrost - GO")
 
 	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
 	body, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
 	return body, err

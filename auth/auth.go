@@ -2,6 +2,7 @@ package auth
 
 import (
 	"encoding/json"
+
 	"github.com/xu42/youzan-sdk-go/util"
 )
 
@@ -61,7 +62,7 @@ type GenTokenBaseResponse struct {
 type GenSelfTokenResponse struct {
 	GenTokenBaseResponse
 	Data struct {
-		AccessToken string `json:"accessToken"`
+		AccessToken string `json:"access_token"`
 		Expires     int64  `json:"expires"`
 		Scope       string `json:"scope"`
 	} `json:"data"`
@@ -71,11 +72,11 @@ type GenSelfTokenResponse struct {
 type GenToolTokenResponse struct {
 	GenTokenBaseResponse
 	Data struct {
-		AccessToken  string `json:"accessToken"`
+		AccessToken  string `json:"access_token"`
 		Expires      int64  `json:"expires"`
 		Scope        string `json:"scope"`
-		TokenType    string `json:"tokenType"`
-		RefreshToken string `json:"refreshToken"`
+		TokenType    string `json:"token_type"`
+		RefreshToken string `json:"refresh_token"`
 	} `json:"data"`
 }
 
