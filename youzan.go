@@ -1,8 +1,8 @@
 package youzan
 
 import (
-	"github.com/xu42/youzan-sdk-go/api"
-	"github.com/xu42/youzan-sdk-go/auth"
+	"github.com/guoqchen1001/youzan-sdk-go/api"
+	"github.com/guoqchen1001/youzan-sdk-go/auth"
 )
 
 // GenSelfToken 生成自用型Token
