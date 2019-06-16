@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 
 	"github.com/xu42/youzan-sdk-go/util"
 )
@@ -22,9 +22,24 @@ func Call(request CallRequest) (response CallResponse, err error) {
 		return
 	}
 
-	response.Success = response.Result != nil
+	if response.Result != nil {
+		response.Success = true
+		response.Data = response.Result
+	}
+
+	var errResponse CallErrorReponse
+	if response.ErrorResponse != errResponse {
+		response.Code = response.ErrorResponse.Code
+		response.Message = response.ErrorResponse.Msg
+		response.Success = false
+	}
+
+	if !response.Success {
+		err = errors.New(response.GetErrorMessage())
+	}
 
 	return
+
 }
 
 // CallRequest 调用接口封装结构体
@@ -35,27 +50,37 @@ type CallRequest struct {
 	APIParams   map[string]string
 }
 
-// CallResponse 接口响应封装结构体
-type CallResponse struct {
-	Success bool
-	Result  map[string]interface{} `json:"response"`
-	Err     struct {
-		Code int
-		Msg  string
-	} `json:"error_response"`
+// CallErrorReponse 错误响应结构
+type CallErrorReponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
 }
 
-// Error 实现Error接口，利于调用api时直接解析错误
-func (resp CallResponse) Error() string {
+// CallDataReponse Data类型响应结构
+type CallDataReponse struct {
+	Code      int                    `json:"code"`
+	Data      map[string]interface{} `json:"data"`
+	Message   string                 `json:"message"`
+	RequestID string                 `json:"request_id"`
+	Success   bool
+}
 
-	var e struct {
-		Code int
-		Msg  string
-	}
+// CallResponse 接口响应封装结构体
+type CallResponse struct {
+	Result        map[string]interface{} `json:"response"`
+	ErrorResponse CallErrorReponse       `json:"error_response"`
+	CallDataReponse
+}
 
-	if resp.Err == e {
+// GetErrorMessage 获取错误信息
+func (resp CallResponse) GetErrorMessage() string {
+
+	if resp.Success {
 		return ""
 	}
 
-	return fmt.Sprintf("[%d]%s", resp.Err.Code, resp.Err.Msg)
+	if resp.Code == 200 {
+		return ""
+	}
+	return resp.Message
 }
