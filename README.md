@@ -2,10 +2,10 @@
 
 <p align="center"> Youzan Yun client for Golang ...</p>
 
-[![GoDoc](https://godoc.org/github.com/xu42/youzan-sdk-go?status.svg)](https://godoc.org/github.com/xu42/youzan-sdk-go)
-[![Build Status](https://travis-ci.org/xu42/youzan-sdk-go.svg)](https://travis-ci.org/xu42/youzan-sdk-go)
-[![release](https://img.shields.io/github/release/xu42/youzan-sdk-go.svg)](https://github.com/xu42/youzan-sdk-go/releases)
-[![GitHub license](https://img.shields.io/badge/license-GNU-blue.svg)](https://raw.githubusercontent.com/xu42/youzan-sdk-go/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/guoqchen1001/youzan-sdk-go?status.svg)](https://godoc.org/github.com/guoqchen1001/youzan-sdk-go)
+[![Build Status](https://travis-ci.org/guoqchen1001/youzan-sdk-go.svg)](https://travis-ci.org/guoqchen1001/youzan-sdk-go)
+[![release](https://img.shields.io/github/release/guoqchen1001/youzan-sdk-go.svg)](https://github.com/guoqchen1001/youzan-sdk-go/releases)
+[![GitHub license](https://img.shields.io/badge/license-GNU-blue.svg)](https://raw.githubusercontent.com/guoqchen1001/youzan-sdk-go/master/LICENSE)
 
 
 ## NOTICE
@@ -19,9 +19,9 @@
 
 ## Install
 ```shell
-go get github.com/xu42/youzan-sdk-go
+go get github.com/guoqchen1001/youzan-sdk-go
 or
-go get github.com/xu42/youzan-sdk-go@bifrost
+go get github.com/guoqchen1001/youzan-sdk-go@bifrost
 ```
 
 ## Usage

@@ -2,7 +2,9 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/xu42/youzan-sdk-go/util"
+	"fmt"
+
+	"github.com/guoqchen1001/youzan-sdk-go/util"
 )
 
 // Call 发起接口调用
@@ -37,8 +39,23 @@ type CallRequest struct {
 type CallResponse struct {
 	Success bool
 	Result  map[string]interface{} `json:"response"`
-	Error   struct {
+	Err     struct {
 		Code int
 		Msg  string
 	} `json:"error_response"`
+}
+
+// Error 实现Error接口，利于调用api时直接解析错误
+func (resp CallResponse) Error() string {
+
+	var e struct {
+		Code int
+		Msg  string
+	}
+
+	if resp.Err == e {
+		return ""
+	}
+
+	return fmt.Sprintf("[%d]%s", resp.Err.Code, resp.Err.Msg)
 }
