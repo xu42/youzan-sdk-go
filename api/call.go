@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"errors"
+	"fmt"
 
 	"github.com/xu42/youzan-sdk-go/util"
 )
@@ -22,21 +22,7 @@ func Call(request CallRequest) (response CallResponse, err error) {
 		return
 	}
 
-	if response.Result != nil {
-		response.Success = true
-		response.Data = response.Result
-	}
-
-	var errResponse CallErrorReponse
-	if response.ErrorResponse != errResponse {
-		response.Code = response.ErrorResponse.Code
-		response.Message = response.ErrorResponse.Msg
-		response.Success = false
-	}
-
-	if !response.Success {
-		err = errors.New(response.GetErrorMessage())
-	}
+	err = response.Analysis()
 
 	return
 
@@ -65,22 +51,45 @@ type CallDataReponse struct {
 	Success   bool
 }
 
+// CallGWErrorResponse 通用网关错误
+type CallGWErrorResponse struct {
+	Code int    `json:"err_code"`
+	Msg  string `json:"err_msg"`
+}
+
 // CallResponse 接口响应封装结构体
 type CallResponse struct {
-	Result        map[string]interface{} `json:"response"`
-	ErrorResponse CallErrorReponse       `json:"error_response"`
+	Result          map[string]interface{} `json:"response"`
+	ErrorResponse   CallErrorReponse       `json:"error_response"`
+	GWErrorResponse CallGWErrorResponse    `json:"gw_err_resp"`
 	CallDataReponse
 }
 
-// GetErrorMessage 获取错误信息
-func (resp CallResponse) GetErrorMessage() string {
+// Analysis 解析处理响应内容
+func (response *CallResponse) Analysis() error {
 
-	if resp.Success {
-		return ""
+	// gw_error_response 网关错误
+	var gwErrResp CallGWErrorResponse
+	if response.GWErrorResponse != gwErrResp {
+		return fmt.Errorf("[%d]%s", response.GWErrorResponse.Code, response.GWErrorResponse.Msg)
 	}
 
-	if resp.Code == 200 {
-		return ""
+	// err_response 响应错误
+	var errResponse CallErrorReponse
+	if response.ErrorResponse != errResponse {
+		return fmt.Errorf("[%d]%s", response.ErrorResponse.Code, response.ErrorResponse.Msg)
 	}
-	return resp.Message
+
+	// response结构，有此内容时默认调用成功，此时赋值给reponse.Data，方便统一解析
+	if response.Result != nil {
+		response.Data = response.Result
+		response.Success = true
+	}
+
+	// code-messgae-data 结构，根据success判断成功与否
+	if !response.Success {
+		return fmt.Errorf("[%d]%s", response.Code, response.Message)
+	}
+
+	return nil
 }
