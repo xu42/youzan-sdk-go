@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 
 	"github.com/xu42/youzan-sdk-go/util"
 )
@@ -28,12 +29,42 @@ func Call(request CallRequest) (response CallResponse, err error) {
 
 }
 
+// Upload 调用接口，文件上传类
+func Upload(request UploadRequest) (response CallResponse, err error) {
+
+	url := util.BuildURL(request.APIName, request.APIVersion, request.AccessToken)
+
+	body, err := util.PostMultiPart(url, request.APIParams)
+
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(body, &response)
+	if err != nil {
+		return
+	}
+
+	err = response.Analysis()
+
+	return
+
+}
+
 // CallRequest 调用接口封装结构体
 type CallRequest struct {
 	AccessToken string
 	APIName     string
 	APIVersion  string
 	APIParams   map[string]string
+}
+
+// UploadRequest 调用上传文件型接口结构体
+type UploadRequest struct {
+	AccessToken string
+	APIName     string
+	APIVersion  string
+	APIParams   map[string]io.Reader
 }
 
 // CallErrorReponse 错误响应结构
