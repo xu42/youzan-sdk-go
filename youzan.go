@@ -1,6 +1,8 @@
 package youzan
 
 import (
+	"io"
+
 	"github.com/xu42/youzan-sdk-go/api"
 	"github.com/xu42/youzan-sdk-go/auth"
 )
@@ -22,4 +24,16 @@ func GenToolToken(clientID, clientSecret, code, redirectURL string) (resp auth.G
 // Call 发起接口调用
 func Call(accessToken, apiName, apiVersion string, params map[string]string) (resp api.CallResponse, err error) {
 	return api.Call(api.CallRequest{AccessToken: accessToken, APIName: apiName, APIVersion: apiVersion, APIParams: params})
+}
+
+// Upload 发起接口调用-文件上传类接口
+func Upload(accessToken, apiName, apiVersion string, params map[string]io.Reader) (resp api.CallResponse, err error) {
+
+	var request api.UploadRequest
+	request.APIName = apiName
+	request.APIParams = params
+	request.APIVersion = apiVersion
+	request.AccessToken = accessToken
+	return api.Upload(request)
+
 }
