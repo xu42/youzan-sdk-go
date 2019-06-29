@@ -22,7 +22,7 @@ func GenToolToken(clientID, clientSecret, code, redirectURL string) (resp auth.G
 }
 
 // Call 发起接口调用
-func Call(accessToken, apiName, apiVersion string, params map[string]string) (resp api.CallResponse, err error) {
+func Call(accessToken, apiName, apiVersion string, params map[string]interface{}) (resp api.CallResponse, err error) {
 	return api.Call(api.CallRequest{AccessToken: accessToken, APIName: apiName, APIVersion: apiVersion, APIParams: params})
 }
 

@@ -24,7 +24,7 @@ func GenToolToken(request GenToolTokenRequest) (response GenToolTokenResponse, e
 }
 
 // get get
-func get(data map[string]string) (body []byte, err error) {
+func get(data map[string]interface{}) (body []byte, err error) {
 
 	params := util.BuildPostParams(data)
 	body, err = util.PostJSON(URLOauthToken, params)
@@ -80,23 +80,23 @@ type GenToolTokenResponse struct {
 	} `json:"data"`
 }
 
-func (req *GenTokenBaseRequest) toMap(grantType string) (m map[string]string) {
-	m = make(map[string]string)
+func (req *GenTokenBaseRequest) toMap(grantType string) (m map[string]interface{}) {
+	m = make(map[string]interface{})
 	m["client_secret"] = req.ClientSecret
 	m["client_id"] = req.ClientID
 	m["authorize_type"] = grantType
 	return
 }
 
-func (req *GenSelfTokenRequest) toMap() (m map[string]string) {
-	m = make(map[string]string)
+func (req *GenSelfTokenRequest) toMap() (m map[string]interface{}) {
+	m = make(map[string]interface{})
 	m = req.GenTokenBaseRequest.toMap("silent")
 	m["grant_id"] = req.GrantID
 	return
 }
 
-func (req *GenToolTokenRequest) toMap() (m map[string]string) {
-	m = make(map[string]string)
+func (req *GenToolTokenRequest) toMap() (m map[string]interface{}) {
+	m = make(map[string]interface{})
 	m = req.GenTokenBaseRequest.toMap("authorization_code")
 	m["code"] = req.Code
 	m["redirect_uri"] = req.RedirectURI

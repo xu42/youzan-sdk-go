@@ -13,6 +13,9 @@ func Call(request CallRequest) (response CallResponse, err error) {
 
 	url := util.BuildURL(request.APIName, request.APIVersion, request.AccessToken)
 	params := util.BuildPostParams(request.APIParams)
+
+	fmt.Print(string(params[:]))
+
 	body, err := util.PostJSON(url, params)
 	if err != nil {
 		return
@@ -56,7 +59,7 @@ type CallRequest struct {
 	AccessToken string
 	APIName     string
 	APIVersion  string
-	APIParams   map[string]string
+	APIParams   map[string]interface{}
 }
 
 // UploadRequest 调用上传文件型接口结构体
