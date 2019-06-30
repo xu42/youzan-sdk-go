@@ -15,7 +15,7 @@ import (
 const URLAPIBase string = "https://open.youzanyun.com/api/%s/%s?access_token=%s"
 
 // BuildPostParams 组装HTTP POST参数
-func BuildPostParams(data map[string]string) []byte {
+func BuildPostParams(data map[string]interface{}) []byte {
 	jsonStr, _ := json.Marshal(data)
 	return jsonStr
 }
