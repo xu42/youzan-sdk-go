@@ -14,8 +14,6 @@ func Call(request CallRequest) (response CallResponse, err error) {
 	url := util.BuildURL(request.APIName, request.APIVersion, request.AccessToken)
 	params := util.BuildPostParams(request.APIParams)
 
-	fmt.Print(string(params[:]))
-
 	body, err := util.PostJSON(url, params)
 	if err != nil {
 		return
