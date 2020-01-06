@@ -7,14 +7,22 @@ import (
 	"github.com/xu42/youzan-sdk-go/auth"
 )
 
-// GenSelfToken 生成自用型Token
+// GenSelfToken 获取自用型AccessToken
 func GenSelfToken(clientID, clientSecret, grantID string) (resp auth.GenSelfTokenResponse, err error) {
 	return auth.GenSelfToken(auth.GenSelfTokenRequest{
 		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, AuthorizeType: "silent"},
 		GrantID:             grantID})
 }
 
-// GenToolToken 生成工具型Token
+// GenSelfTokenWithRefresh 获取自用型AccessToken同时获取RefreshToken
+func GenSelfTokenWithRefresh(clientID, clientSecret, grantID string) (resp auth.GenSelfTokenResponse, err error) {
+	return auth.GenSelfToken(auth.GenSelfTokenRequest{
+		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, AuthorizeType: "silent"},
+		GrantID:             grantID,
+		Refresh:             true})
+}
+
+// GenToolToken 获取工具型Token
 func GenToolToken(clientID, clientSecret, code, redirectURL string) (resp auth.GenToolTokenResponse, err error) {
 	return auth.GenToolToken(auth.GenToolTokenRequest{
 		GenTokenBaseRequest: auth.GenTokenBaseRequest{ClientID: clientID, ClientSecret: clientSecret, AuthorizeType: "authorization_code"},
