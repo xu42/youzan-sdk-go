@@ -38,10 +38,11 @@ type GenTokenBaseRequest struct {
 	ClientSecret  string `json:"client_secret"`
 }
 
-// GenSelfTokenRequest 获取自用型AccessToken请求参数结构体grant_id
+// GenSelfTokenRequest 获取自用型AccessToken请求参数结构体grant_id refresh是否同时获取refresh_token
 type GenSelfTokenRequest struct {
 	GenTokenBaseRequest
 	GrantID string `json:"grant_id"`
+	Refresh bool `json:"refresh"`
 }
 
 // GenToolTokenRequest  获取工具型AccessToken请求参数结构体
@@ -63,6 +64,7 @@ type GenSelfTokenResponse struct {
 	GenTokenBaseResponse
 	Data struct {
 		AccessToken string `json:"access_token"`
+		RefreshToken string `json:"refresh_token"`
 		Expires     int64  `json:"expires"`
 		Scope       string `json:"scope"`
 	} `json:"data"`
@@ -92,6 +94,7 @@ func (req *GenSelfTokenRequest) toMap() (m map[string]interface{}) {
 	m = make(map[string]interface{})
 	m = req.GenTokenBaseRequest.toMap("silent")
 	m["grant_id"] = req.GrantID
+	m["refresh"] = req.Refresh
 	return
 }
 
